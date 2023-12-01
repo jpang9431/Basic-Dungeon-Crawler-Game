@@ -57,9 +57,6 @@ abstract class Mob extends Entity{
 		Skill skill = skills[0];
 		if (skill!=null&&!skill.getOffense()&&skill.getPassive()) {
 			this.stats[1] = skill.getDam(this.getResistances(), 0.0, true);
-			if (this.stats[1]>0){
-				System.out.println("Passive triggered");
-			}
 		}
 		damage = damage - this.stats[1];
 		if (damage > 0){
