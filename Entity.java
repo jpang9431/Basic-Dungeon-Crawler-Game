@@ -1,58 +1,61 @@
 abstract class Entity {
-	private String name = "";
-	private boolean isMob = true;
-	private String image = "";
-	protected int choice = 1;
-	Entity(String name, boolean isMob, String image) {
-		this.name = name;
-		this.isMob = isMob;
-		this.image = image;
-	}
+  private String name = "";
+  private boolean isMob = true;
+  private String image = "";
+  protected int choice = 1;
 
-	abstract void action(Entity otherEntity);
+  // Root abstract class
+  Entity(String name, boolean isMob, String image) {
+    this.name = name;
+    this.isMob = isMob;
+    this.image = image;
+  }
 
-	public String getName() {
-		return name;
-	}
+  // Called to get the action of an entity based on the other entity
+  abstract void action(Entity otherEntity);
 
-	public boolean getMob() {
-		return isMob;
-	}
+  // Called to geth the name of this entity
+  public String getName() {
+    return name;
+  }
 
-	public String getImage() {
-		return image;
-	}
+  // Called to see if this entity is a mob
+  public boolean getMob() {
+    return isMob;
+  }
 
-	// Stuff so we can use entity for interactions instead of mob
-	public double[] getResistances() {
-		return null;
-	}
+  // Called to get the string path to the image of this mob
+  public String getImage() {
+    return image;
+  }
 
-	public void dam(double damage) {
-		return;
-	};
+  // Stuff so we can use entity for interactions instead of mob see mob for more
+  // details
+  public double[] getResistances() {
+    return null;
+  }
 
-	public double[] getStats() {
-		return null;
-	}
+  public void dam(double damage) {
+    return;
+  };
 
-	public void setStats(double[] inStats) {
-		return;
-	}
+  public double[] getStats() {
+    return null;
+  }
 
-	public String[] getnames() {
-		return null;
-	}
+  public void setStats(double[] inStats) {
+    return;
+  }
 
-	public Skill[] getSkills() {
-		return null;
-	}
-	
-	public String[] getSkillNames(){
-		return null;
-	}
+  public Skill[] getSkills() {
+    return null;
+  }
 
-	public void setChoice(int choice){
-		this.choice = choice;
-	}
+  public String[] getSkillNames() {
+    return null;
+  }
+
+  public void setChoice(int choice) {
+    this.choice = choice;
+  }
 }

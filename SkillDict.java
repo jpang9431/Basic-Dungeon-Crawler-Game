@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+//Contains all the skills possible
 class SkillDict {
   private HashMap<String, Skill> skillObjects = new HashMap<String, Skill>();
   private HashMap<String, String> skillDiscrpt = new HashMap<String, String>();
@@ -10,30 +11,26 @@ class SkillDict {
   private double[] acc = { 100, 100, 100, 100, 100, 10 };
   private boolean[] passive = { false, false, false, false, false, true };
   private boolean[] offense = { true, true, true, false, true, false };
-  private Skill.Type[] type = { Skill.Type.MAGIC, Skill.Type.BLUNT, Skill.Type.SHARP, Skill.Type.NORMAL, Skill.Type.BLUNT, Skill.Type.NORMAL};
+  // Type of each skill
+  private Skill.Type[] type = { Skill.Type.MAGIC, Skill.Type.BLUNT, Skill.Type.SHARP, Skill.Type.NORMAL,
+      Skill.Type.BLUNT, Skill.Type.NORMAL };
   private double[] dam = { 4, 2, 3, 2, 2, Double.MAX_VALUE };
   private double[] self = { 0, 0, 0, 0, 0, 0 };
-  private boolean[] sheild = {false,false,false,false,false,false};
 
+  // Call to create dictionary of skills
   SkillDict() {
-    System.out.println("Names: "+skillNames.length);
-    System.out.println("Acc: "+acc.length);
-    System.out.println("Pass: "+passive.length);
-    System.out.println("Off: "+offense.length);
-    System.out.println("Types: "+type.length);
-    System.out.println("Dam: "+dam.length);
-    System.out.println("Self: "+self.length);
-    System.out.println("Sheild: "+sheild.length);
     for (int i = 0; i < skillNames.length; i++) {
-      skillObjects.put(skillNames[i], new Skill(acc[i], passive[i], offense[i], type[i], new Damage(dam[i], self[i]),sheild[i]));
+      skillObjects.put(skillNames[i], new Skill(acc[i], passive[i], offense[i], type[i], new Damage(dam[i], self[i])));
       skillDiscrpt.put(skillNames[i], skillDiscrpts[i]);
     }
   }
 
+  // Get skill instace based on the skill name
   public Skill getSkill(String name) {
     return skillObjects.get(name);
   }
 
+  // Get skill description based on skill name
   public String getDiscrpt(String name) {
     return skillDiscrpt.get(name);
   }
