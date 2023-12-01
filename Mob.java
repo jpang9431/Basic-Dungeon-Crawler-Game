@@ -21,11 +21,22 @@ abstract class Mob extends Entity{
 		this.resistances = resistances;
 	}
 
+
+	public int getNumSkills(){
+		int nonNull = 0;
+		for (int i=0; i <skills.length; i++){
+			if (skills[i]!=null){
+				nonNull++;
+			}
+		}
+		return nonNull;
+	}
+	
 	public void action(Entity otherEntity){
 		int index = skillChoice(otherEntity);
 		Skill skill = skills[index];
 		if (skill.getOffense()) {
-			double stat = 0;
+			double stat = 1;
 			if (skill.getType().equals(Skill.Type.MAGIC)) {
 				stat = stats[4];
 			} else {
@@ -44,10 +55,16 @@ abstract class Mob extends Entity{
 
 	public void dam(double damage) {
 		Skill skill = skills[0];
-		if (!skill.getOffense()&&skill.getPassive()) {
+		if (skill!=null&&!skill.getOffense()&&skill.getPassive()) {
 			this.stats[1] = skill.getDam(this.getResistances(), 0.0, true);
+			if (this.stats[1]>0){
+				System.out.println("Passive triggered");
+			}
 		}
-		this.stats[0] = damage-this.stats[1];
+		damage = damage - this.stats[1];
+		if (damage > 0){
+			this.stats[0] = this.stats[0] - damage;
+		}
 		this.stats[1] = 0;
 	}
 
