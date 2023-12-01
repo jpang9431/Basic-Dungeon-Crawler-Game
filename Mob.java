@@ -14,7 +14,7 @@ abstract class Mob extends Entity{
 		this.skillNames = skillNames;
 		this.stats = stats;
 		for (int i=0; i<skillNames.length; i++) {
-			if (!skillNames.equals(null)) {
+			if (!(skillNames == null)) {
 				skills[i] = Game.dict.getSkill(this.skillNames[i]);
 			}
 		}
@@ -75,4 +75,11 @@ abstract class Mob extends Entity{
 		return skillNames;
 	}
 
+	public Skill[] getSkills(){
+		return skills;
+	}
+	
+	public String[] getSkillNames(){
+		return skillNames;
+	}
 }
