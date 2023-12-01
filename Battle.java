@@ -52,9 +52,6 @@ class Battle extends JPanel implements ActionListener{
     this.add(userHP);
     mobHP.setBounds(Game.width-270, 90, 100, 50);
     this.add(mobHP);
-    
-    
-    
     //Turn by turn detail
     turnDetail.setBounds(170,305,396,32);
     this.add(turnDetail);
@@ -85,15 +82,10 @@ class Battle extends JPanel implements ActionListener{
     }
     updateText();
   }
-
-  private void beginBattle(){
-    
-  }
   
   @Override
   public void actionPerformed(ActionEvent e) {
     // TODO Auto-generated method stub
-    System.out.println(e.getActionCommand());
     String command = e.getActionCommand();
     if (command.equals("up")){
       
@@ -103,12 +95,21 @@ class Battle extends JPanel implements ActionListener{
       int intCommand = Integer.valueOf(e.getActionCommand());
       user.setChoice(intCommand);
       user.action(mob);
+      mob.action(user);
+      updateText();
     }
+  }
+
+  public double rounding(double num){
+    num = num*10;
+    num = Math.round(num);
+    num = num/10;
+    return num;
   }
   
   public void updateText(){
-    mobHP.setText("<html>S: "+mob.getStats()[1]+"<br/>H: "+mob.getStats()[0]+"<html>");
-    userHP.setText("<html>S: "+user.getStats()[1]+"<br/>H: "+user.getStats()[0]+"<html>");
+    mobHP.setText("<html>H: "+rounding(mob.getStats()[0])+"<html>");
+    userHP.setText("<html>H: "+rounding(user.getStats()[0])+"<html>");
     mobHP.setFont(infoFont);
     userHP.setFont(infoFont);
     detail = "<html>";

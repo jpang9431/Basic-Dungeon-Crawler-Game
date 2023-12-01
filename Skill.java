@@ -32,6 +32,9 @@ class Skill{
     if (acc<=accCheck){
       return 0;
     }
+    if (!this.getOffense()){
+      return dam.getDam();
+    }
     double randNum = rand.nextDouble()+.5;
     randNum = randNum + favor;
     if (notSelf){
@@ -44,13 +47,19 @@ class Skill{
     }
     switch(type){
       case MAGIC:
-        randNum = randNum/resistances[magic];
+        if (resistances[magic]>0){
+          randNum = randNum/resistances[magic];
+        }
       case BLUNT:
-        randNum = randNum/resistances[blunt];
+        if (resistances[blunt]>0){
+          randNum = randNum/resistances[blunt];
+        }
       case SHARP:
-        randNum = randNum/resistances[sharp];
+        if (resistances[sharp]>0){
+          randNum = randNum/resistances[sharp];
+        }
       case NORMAL:
-        
+        return randNum;
     }
     return randNum;
   }
@@ -63,7 +72,7 @@ class Skill{
   public boolean getOffense() {
 	  return offense;
   }
-  public boolean getShieldAdd () {
+  public boolean getShieldAdd() {
 	  return shieldAdd;
   }
   public boolean getHurtSelf () {
