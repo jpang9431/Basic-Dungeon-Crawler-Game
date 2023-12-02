@@ -43,6 +43,10 @@ abstract class Entity {
     return null;
   }
 
+  public String[] getChoices() {
+    return null;
+  }
+
   public void setStats(double[] inStats) {
     return;
   }
