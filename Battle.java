@@ -31,13 +31,16 @@ class Battle extends JPanel implements ActionListener {
   private int pointer = 0;
   private Font infoFont = new Font("Arial", Font.PLAIN, 20);
   private Font titleFont = new Font("Arial", Font.BOLD, 30);
+  private int index = 0;
 
   // Consturtor to start the battle
-  Battle(Entity user, Entity mob) {
+  Battle(Entity user, Entity mob, int index) {
     this.user = user;
     this.mob = mob;
+    this.index = index;
     // first line detail
     details.add(user.getName() + " begins battle with " + mob.getName());
+    details.add("This is monster number: " + index);
     // images
     userImage.setIcon(new ImageIcon(user.getImage()));
     mobImage.setIcon(new ImageIcon(mob.getImage()));
@@ -51,7 +54,7 @@ class Battle extends JPanel implements ActionListener {
     // title
     title.setBounds(170, 0, 460, 80);
     this.add(title);
-    title.setText(user.getName() + " vs " + mob.getName());
+    title.setText("<html>" + user.getName() + " vs " + mob.getName() + "<br/>Entity number: " + index + "<html>");
     title.setFont(titleFont);
     // text above images
     userHP.setBounds(170, 90, 100, 50);
@@ -103,8 +106,14 @@ class Battle extends JPanel implements ActionListener {
       int intCommand = Integer.valueOf(e.getActionCommand());
       user.setChoice(intCommand);
       user.action(mob);
-      mob.action(user);
-      updateText();
+      if (mob.getStats()[0] <= 0) {
+        Game.next();
+      } else if (user.getStats()[0] <= 0) {
+        Game.end();
+      } else {
+        mob.action(user);
+        updateText();
+      }
     }
   }
 

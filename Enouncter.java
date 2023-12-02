@@ -51,5 +51,6 @@ class Encounter extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     event.setChoice(Integer.valueOf(e.getActionCommand()));
     event.action(user);
+    Game.next();
   }
 }

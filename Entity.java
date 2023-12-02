@@ -3,7 +3,7 @@ abstract class Entity {
   private boolean isMob = true;
   private String image = "";
   protected int choice = 1;
-
+  
   // Root abstract class
   Entity(String name, boolean isMob, String image) {
     this.name = name;
@@ -61,5 +61,9 @@ abstract class Entity {
 
   public void setChoice(int choice) {
     this.choice = choice;
+  }
+
+  public void resetStats(){
+    return;
   }
 }
