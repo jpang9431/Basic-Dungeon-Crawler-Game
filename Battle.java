@@ -1,43 +1,35 @@
-import javax.imageio.*;
-import javax.swing.*;
-import java.awt.Image.*;
-import java.io.File;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.PointerInfo;
-import java.awt.MouseInfo;
-import java.util.ArrayList;
 import java.awt.Font;
-import java.util.Random;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 //Use to battle two entities togteher
 class Battle extends JPanel implements ActionListener {
   private JButton[] choices = new JButton[4];
-  private String userName = "", mobName = "";
-  private File userFile = null, mobFile = null;
   private JLabel title = new JLabel("", JLabel.CENTER);
   private JButton up = new JButton(new ImageIcon("images/Up.png")),
       down = new JButton(new ImageIcon("images/Down.png"));
   private JLabel mobHP = new JLabel("", JLabel.CENTER), userHP = new JLabel("", JLabel.CENTER),
-      turnDetail = new JLabel(""), userLabel, mobLabel;
+      turnDetail = new JLabel("");
   private JLabel userImage = new JLabel(""), mobImage = new JLabel("");
   private Entity user, mob;
   private ArrayList<String> details = new ArrayList<String>();
   private String detail = "";
-  private int pointer = 0;
   private Font infoFont = new Font("Arial", Font.PLAIN, 20);
   private Font titleFont = new Font("Arial", Font.BOLD, 30);
-  private int index = 0;
+  @SuppressWarnings("unused")
+  private int pointer = 0;
 
   // Consturtor to start the battle
   Battle(Entity user, Entity mob, int index) {
     this.user = user;
     this.mob = mob;
-    this.index = index;
     // first line detail
     details.add(user.getName() + " begins battle with " + mob.getName());
     details.add("This is monster number: " + index);
@@ -110,6 +102,7 @@ class Battle extends JPanel implements ActionListener {
         Game.next();
       } else if (user.getStats()[0] <= 0) {
         Game.end();
+        System.out.println("end");
       } else {
         mob.action(user);
         updateText();
@@ -127,6 +120,8 @@ class Battle extends JPanel implements ActionListener {
 
   // Call to update text display stats on user and mob
   public void updateText() {
+    
+    
     mobHP.setText("<html>H: " + rounding(mob.getStats()[0]) + "<html>");
     userHP.setText("<html>H: " + rounding(user.getStats()[0]) + "<html>");
     mobHP.setFont(infoFont);
@@ -144,5 +139,9 @@ class Battle extends JPanel implements ActionListener {
     }
     detail = detail + "<html>";
     turnDetail.setText(detail);
+    if (user.getStats()[0] <= 0) {
+      Game.end();
+      System.out.println("end");
+    }
   }
 }

@@ -9,7 +9,8 @@ abstract class Mob extends Entity {
   private double favor = 0.0;
   // {"Magic","Blunt","Sharp"};
   private double[] resistances = { 0, 0, 0 };
-
+  private double multipler = 1.0;
+  
   // Use to create a mob entity
   Mob(String[] skillNames, double[] resistances, String name, String image) {
     super(name, true, image);
@@ -47,10 +48,10 @@ abstract class Mob extends Entity {
       }
       otherEntity.dam(stat * skill.getDam(otherEntity.getResistances(), favor, true));
       if (skill.getHurtSelf()) {
-        this.dam(stat * skill.getDam(this.getResistances(), 0.0, false));
+        this.dam(stat * skill.getDam(this.getResistances(), favor, false));
       }
     } else if (!skill.getOffense()) {
-      this.stats[1] = skill.getDam(this.getResistances(), 0.0, false);
+      this.stats[1] = skill.getDam(this.getResistances(), favor, false);
     }
   }
 
@@ -63,7 +64,7 @@ abstract class Mob extends Entity {
   public void dam(double damage) {
     Skill skill = skills[0];
     if (skill != null && !skill.getOffense() && skill.getPassive()) {
-      this.stats[1] = skill.getDam(this.getResistances(), 0.0, true);
+      this.stats[1] = skill.getDam(this.getResistances(), favor, true);
     }
     damage = damage - this.stats[1];
     if (damage > 0) {
