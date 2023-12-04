@@ -15,11 +15,12 @@ class Menu extends JPanel implements MouseListener {
   private double delta = 0.05;
   private int bobing = 0;
   private static final int width = 800, height = 450;
-  BufferedImage[] imageOG = new BufferedImage[5];
-  BufferedImage[] rotImage = new BufferedImage[5];
+  private BufferedImage[] imageOG = new BufferedImage[5];
+  private BufferedImage[] rotImage = new BufferedImage[5];
   private File alive = new File("images/Image.jpg");
   private int imageNum;
   private Consumer<Integer> listener;
+	private String label;
 
   /**
    * @param paths    takes in paths of pictures and addes them to imageOG, 5 Max
@@ -72,10 +73,27 @@ class Menu extends JPanel implements MouseListener {
     timer.start();
   }
 
+	public Menu(String[] paths, Consumer<Integer> listener, String label){
+		this(paths, listener);
+		this.label = label;
+	}
+
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
+
+		if(label!=null){
+			Font oldFont = g.getFont();
+			Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+			g.setFont(font);
+			FontMetrics fontMetric = g2d.getFontMetrics(font);
+			int x = (width - fontMetric.stringWidth(label))/2;
+			int y = ((height - fontMetric.getHeight())/2)+fontMetric.getAscent()-200;
+			g2d.drawString(label, x, y);
+			g.setFont(oldFont);
+		}
+		
     for (int i = 0; i < imageOG.length; i++) {
       int curX = (width / (imageOG.length + 1)) * (i + 1);
       if (imageNum == i) {
@@ -114,6 +132,10 @@ class Menu extends JPanel implements MouseListener {
 
     return rotated;
   }
+
+	public void setText(String string){
+		label = string;
+	}
 
   private int findComponent(Point point) {
     int pointX = (int) point.getX(), pointY = (int) point.getY();
