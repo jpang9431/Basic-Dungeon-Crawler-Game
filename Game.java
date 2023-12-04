@@ -19,6 +19,7 @@ class Game {
   private int index = 0;
   private static Game game = null;
   private File alive = new File("images/ALIVE.png");
+  
   // Call to start the program
   Game() {
     frame.setSize(width, height);
@@ -100,7 +101,7 @@ class Game {
       while (checkEnemey(tempValue)) {
         tempValue = rand.nextInt(mobLevels.length);
       }
-      curValue = curValue + tempValue + 1;
+      curValue = curValue + mobLevels[tempValue];
       wave.add(getEntity(mobList[tempValue]));
       tempValue = mobLevels.length;
     }
