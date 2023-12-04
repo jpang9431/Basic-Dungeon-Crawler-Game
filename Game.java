@@ -1,36 +1,58 @@
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
-
+import javax.imageio.*;
+import java.io.File;
+import java.awt.Point;
 class Game {
   public final static SkillDict dict = new SkillDict();
   public final static int width = 800, height = 450;
   private JFrame frame = new JFrame("Game");
   private String[] images = { "images/Start.png", "images/Settings.png", "images/Tutorial.png" };
-  private Integer randomNumber = 3;
+  private static String[] endImages = {"images/Start.png", "images/Image.jpg"};
   private static User user = new User();
-  private String[] mobList = { "slime" };
-  private int[] mobLevels = { 1 };
+  private String[] mobList = { "slime", "magicSlime" };
+  private int[] mobLevels = { 1, 2 };
   private Random rand = new Random();
   private double userMaxHP = Game.user.getStats()[0];
   private ArrayList<Entity> wave = new ArrayList<Entity>();
   private int index = 0;
   private static Game game = null;
-
+  private File alive = new File("images/ALIVE.png");
+  
   // Call to start the program
   Game() {
     frame.setSize(width, height);
+    frame.setContentPane(new Menu(images, Game::start));
     frame.setVisible(true);
+    try{
+      frame.setCursor(frame.getToolkit().createCustomCursor(ImageIO.read(alive), new Point(), ""));
+    } catch(Exception e){
+      e.printStackTrace();
+    }
+    
     game = this;
-    next();
+    // next();
   }
 
-  public static void end() {
-    System.out.println("end");
+  public static void end(){
+    game.frame.setContentPane(new Menu(endImages, Game::end));
+    game.frame.revalidate();
+    game.frame.repaint();
+  }
+  
+  public static void end(Integer choice) {
+    if (choice == 0){
+      game.frame.setVisible(false);
+      game.frame.dispose();
+      new Game();
+    }
   }
 
   public static void start(Integer choice) {
-    System.out.println(choice);
+    if (choice == 0) {
+      next();
+    }
   }
 
   public static void next() {
@@ -69,45 +91,42 @@ class Game {
   public void nonStaticUpdateHP(int change) {
     userMaxHP = userMaxHP + change;
   }
-
+  
   private void getWave() {
     wave.clear();
     double maxValue = user.getStats()[2];
     int curValue = 0;
     int tempValue = mobLevels.length;
     while (curValue < maxValue) {
-      // Infite loop lol
       while (checkEnemey(tempValue)) {
         tempValue = rand.nextInt(mobLevels.length);
       }
-      curValue = curValue + tempValue;
-      wave.add(getEntity(mobList[tempValue - 1]));
+      curValue = curValue + mobLevels[tempValue];
+      wave.add(getEntity(mobList[tempValue]));
+      tempValue = mobLevels.length;
     }
+    wave.add(new RandomStat());
     wave.add(new LevelUp());
   }
 
   private boolean checkEnemey(int index) {
     if (index >= mobLevels.length) {
-      return false;
-    } else if (user.getStats()[2] < mobLevels[index]) {
       return true;
-    } else {
+    } else if (user.getStats()[2] >= mobLevels[index]) {
       return false;
+    } else {
+      return true;
     }
   }
 
   private Entity getEntity(String entityName) {
     if (entityName.equals("slime")) {
       return new Slime();
+    } else if (entityName.equals("magicSlime")) {
+      return new MagicSlime();
     } else {
       return null;
     }
-  }
-
-  private void setMenu() {
-    frame.setContentPane(new Menu(images, Game::start));
-    frame.setSize(width, height);
-    frame.setVisible(true);
   }
 
   // Main method
