@@ -1,4 +1,4 @@
-import java.util.random;
+import java.util.Random;
 
 class MagicSlime extends Mob {
   // {"Health", "Shield", "Level", "Strength", "Magic"};
