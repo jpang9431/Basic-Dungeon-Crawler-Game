@@ -25,14 +25,14 @@ class Encounter extends JPanel implements ActionListener {
     int size = 460;
     this.event = event;
     this.user = user;
-    title = new JLabel(user.getName() + " has " + event.getName(), JLabel.CENTER);
+    title = new JLabel("<html><div style='text-align: center;'>"+user.getName() + " has " + event.getName()+"<html>", JLabel.CENTER);
     title.setBounds(170, 0, 460, 80);
     title.setFont(titleFont);
     this.add(title);
     buttons = new JButton[event.getChoices().length];
     size = size / event.getChoices().length;
     for (int i = 0; i < event.getChoices().length; i++) {
-      buttons[i] = new JButton("<html>" + event.getChoices()[i] + "<html>");
+      buttons[i] = new JButton("<html><div style='text-align: center;'>" + event.getChoices()[i] + "<html>");
       buttons[i].addActionListener(this);
       buttons[i].setActionCommand(String.valueOf(i));
       buttons[i].setBounds(170 + size * i, 352, size, 70);

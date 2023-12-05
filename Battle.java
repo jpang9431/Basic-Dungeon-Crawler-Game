@@ -27,7 +27,7 @@ class Battle extends JPanel implements ActionListener {
   private int pointer = 0;
 
   // Consturtor to start the battle
-  Battle(Entity user, Entity mob, int index) {
+  Battle(Entity user, Entity mob, int index, int remain) {
     this.user = user;
     this.mob = mob;
     // first line detail
@@ -46,7 +46,7 @@ class Battle extends JPanel implements ActionListener {
     // title
     title.setBounds(170, 0, 460, 80);
     this.add(title);
-    title.setText("<html>" + user.getName() + " vs " + mob.getName() + "<br/>Entity number: " + index + "<html>");
+    title.setText("<html><div style='text-align: center;'>" + user.getName() + " vs " + mob.getName() + "<br/>Entities remaining: " + remain + "<html>");
     title.setFont(titleFont);
     // text above images
     userHP.setBounds(170, 90, 100, 50);
@@ -73,7 +73,7 @@ class Battle extends JPanel implements ActionListener {
     this.add(down);
     // Choice buttons
     for (int i = 1; i < user.getSkillNames().length; i++) {
-      choices[i - 1] = new JButton("<html>" + user.getSkillNames()[i] + "<html>");
+      choices[i - 1] = new JButton("<html><div style='text-align: center;'>" + user.getSkillNames()[i] + "<html>");
       choices[i - 1].setHorizontalAlignment(SwingConstants.CENTER);
       choices[i - 1].setBounds(170 + (115 * (i - 1)), 352, 115, 70);
       this.add(choices[i - 1]);

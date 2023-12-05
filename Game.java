@@ -83,7 +83,7 @@ class Game {
     }
     Entity curEntity = wave.get(index);
     if (curEntity.getMob()) {
-      JPanel panel = new Battle(user, curEntity, index + 1);
+      JPanel panel = new Battle(user, curEntity, index+1, wave.size()-index-1);
       panel.add(statPanel);
       frame.setContentPane(panel);
     } else if (!curEntity.getMob()) {
@@ -114,7 +114,22 @@ class Game {
     double maxValue = user.getStats()[2];
     int curValue = 0;
     int tempValue = mobLevels.length;
+    boolean hadStatChange = false;
+    int goodBad = rand.nextInt(2);
+    Entity statChange = null;
+    if (goodBad==0){
+      statChange = new RandomStat();
+    } else if (goodBad==1){
+      statChange = new RandomStatDown();
+    }
     while (curValue < maxValue) {
+      if (!hadStatChange){
+        int randomValue = rand.nextInt(5);
+        if (randomValue==0){
+          wave.add(statChange);
+          hadStatChange = true;
+        }
+      }
       while (checkEnemey(tempValue)) {
         tempValue = rand.nextInt(mobLevels.length);
       }
@@ -122,7 +137,9 @@ class Game {
       wave.add(getEntity(mobList[tempValue]));
       tempValue = mobLevels.length;
     }
-    wave.add(new RandomStat());
+    if (!hadStatChange){
+      wave.add(statChange);
+    }
     wave.add(new LevelUp());
   }
 
