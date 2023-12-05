@@ -19,12 +19,13 @@ class Game {
   private int index = 0;
   private static Game game = null;
   private File alive = new File("images/ALIVE.png");
-  
+  private JPanel statPanel = new StatPanel();
   // Call to start the program
   Game() {
     frame.setSize(width, height);
     frame.setContentPane(new Menu(images, Game::start));
     frame.setVisible(true);
+    statPanel.setBounds(width-20,0,20,20);
     try{
       frame.setCursor(frame.getToolkit().createCustomCursor(ImageIO.read(alive), new Point(), ""));
     } catch(Exception e){
@@ -33,6 +34,18 @@ class Game {
     
     game = this;
     // next();
+  }
+
+  public static User getUser(){
+    return user;
+  }
+
+  public static double getMaxHP(){
+    return game.max();
+  }
+
+  public double max(){
+    return userMaxHP;
   }
 
   public static void end(){
@@ -70,9 +83,13 @@ class Game {
     }
     Entity curEntity = wave.get(index);
     if (curEntity.getMob()) {
-      frame.setContentPane(new Battle(user, curEntity, index + 1));
+      JPanel panel = new Battle(user, curEntity, index + 1);
+      panel.add(statPanel);
+      frame.setContentPane(panel);
     } else if (!curEntity.getMob()) {
-      frame.setContentPane(new Encounter(user, curEntity));
+      JPanel panel = new Encounter(user, curEntity);
+      panel.add(statPanel);
+      frame.setContentPane(panel);
     }
     frame.revalidate();
     frame.repaint();
