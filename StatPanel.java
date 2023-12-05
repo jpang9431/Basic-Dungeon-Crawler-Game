@@ -29,6 +29,7 @@ class StatPanel extends JPanel implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     JFrame statShow = new JFrame("Stats");
+		statShow.setAlwaysOnTop(true);
     statShow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     JPanel panel = new JPanel();
     panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
