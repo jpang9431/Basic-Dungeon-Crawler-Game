@@ -37,6 +37,7 @@ class StatPanel extends JPanel implements ActionListener {
     User user = Game.getUser();
     double[] userStats = user.getStats();
     String[] skillNames = user.getSkillNames();
+    Skill[] skills = user.getSkills();
     panel.add(new JLabel("Stats"));
     panel.add(new JLabel("Level: " + userStats[2]));
     panel.add(new JLabel("Max Health: " + Game.getMaxHP()));
@@ -47,7 +48,7 @@ class StatPanel extends JPanel implements ActionListener {
     for (int i = 0; i < skillNames.length; i++) {
       if (skillNames[i] != null) {
         panel.add(new JLabel("<html>" + skillNames[i] + ": " 
-                             + dict.getDiscrpt(skillNames[i]) + "<html>"));
+                             + dict.getDiscrpt(skillNames[i]) + " for " + skills[i].getBase() +"<html>"));
       }
     }
     statShow.setContentPane(panel);

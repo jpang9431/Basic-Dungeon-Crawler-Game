@@ -30,6 +30,10 @@ class Skill {
     }
   }
 
+  public double getBase(){
+    return dam.getDam();
+  }
+
   // Called to get the amount of damage this skill will note favor closer to 1
   // means more liekly to hit max damage
   public double getDam(double[] resistances, double favor, boolean notSelf) {

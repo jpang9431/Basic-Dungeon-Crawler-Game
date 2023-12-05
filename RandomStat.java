@@ -7,7 +7,7 @@ class RandomStat extends Event {
   private int choice = 0;
   private Random rand = new Random();
   RandomStat() {
-    super("random stat up", "images/Image.jpg", "One of your stats was increased", null, choices, odds, Skill.Type.NORMAL);
+    super("Random stat up", "images/Image.jpg", "One of your stats was increased", null, choices, odds, Skill.Type.NORMAL);
   }
 
   public void action(Entity user) {

@@ -5,7 +5,7 @@ class RandomStatDown extends Event{
   private int choice = 0;
   private Random rand = new Random();
   RandomStatDown() {
-    super("random stat down", "images/Image.jpg", "One of your stats was decreased", null, choices, odds, Skill.Type.NORMAL);
+    super("Random stat down", "images/Image.jpg", "One of your stats was decreased", null, choices, odds, Skill.Type.NORMAL);
   }
   public void action(Entity user) {
     double[] stats = user.getStats();

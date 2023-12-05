@@ -10,16 +10,16 @@ class Game {
   private JFrame frame = new JFrame("Game");
   private String[] images = { "images/Start.png", "images/Settings.png", "images/Tutorial.png" };
   private static String[] endImages = {"images/Start.png", "images/Image.jpg"};
-  private static User user = new User();
+  private User user = new User();
   private String[] mobList = { "slime", "magicSlime" };
   private int[] mobLevels = { 1, 2 };
   private Random rand = new Random();
-  private double userMaxHP = Game.user.getStats()[0];
   private ArrayList<Entity> wave = new ArrayList<Entity>();
   private int index = 0;
   private static Game game = null;
   private File alive = new File("images/ALIVE.png");
   private JPanel statPanel = new StatPanel();
+  private double userMaxHP;
   // Call to start the program
   Game() {
     frame.setSize(width, height);
@@ -33,10 +33,15 @@ class Game {
     }
     
     game = this;
+    userMaxHP =  Game.getUser().getStats()[0];
     // next();
   }
 
   public static User getUser(){
+    return game.nonStaticGetUser();
+  }
+
+  public User nonStaticGetUser(){
     return user;
   }
 

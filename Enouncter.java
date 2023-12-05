@@ -25,7 +25,7 @@ class Encounter extends JPanel implements ActionListener {
     int size = 460;
     this.event = event;
     this.user = user;
-    title = new JLabel("<html><div style='text-align: center;'>"+user.getName() + " has " + event.getName()+"<html>", JLabel.CENTER);
+    title = new JLabel("<html><div style='text-align: center;'>" + event.getName()+"<html>", JLabel.CENTER);
     title.setBounds(170, 0, 460, 80);
     title.setFont(titleFont);
     this.add(title);
