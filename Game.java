@@ -4,6 +4,7 @@ import java.util.Random;
 import javax.imageio.*;
 import java.io.File;
 import java.awt.Point;
+import java.util.ArrayList;
 class Game {
   public final static SkillDict dict = new SkillDict();
   public final static int width = 800, height = 450;
@@ -20,6 +21,11 @@ class Game {
   private File alive = new File("images/ALIVE.png");
   private StatPanel statPanel = new StatPanel();
   private double userMaxHP;
+  private static double multi = 1; 
+  private static ArrayList<String> text = new ArrayList<String>();
+  private static int pointer = 0;
+  private static boolean isUserStatShow = false;
+  private static ShowStat userStats;
   // Call to start the program
   Game() {
     frame.setSize(width, height);
@@ -31,10 +37,55 @@ class Game {
     } catch(Exception e){
       e.printStackTrace();
     }
-    
     game = this;
     userMaxHP =  Game.getUser().getStats()[0];
     // next();
+  }
+
+  public static void flipShow(){
+    isUserStatShow = !isUserStatShow;
+    if (isUserStatShow){
+      userStats = new ShowStat(Game.getUser());
+    } 
+  }
+
+  public static void setShow(boolean show){
+    isUserStatShow = show;
+    if (isUserStatShow){
+      userStats = new ShowStat(Game.getUser());
+    } 
+  }
+
+  public static void upate(){
+    if (isUserStatShow){
+      userStats.update();
+    }
+  }
+  
+  public static void updateText(String inText){
+    text.add(inText);
+    pointer++;
+  }
+
+  public String[] upDown(boolean up){
+    if (up){
+      pointer--;
+    } else {
+      pointer++;
+    }
+    if (pointer < 1){
+      pointer++;
+    } else if (pointer>=text.size()){
+      pointer--;
+    }
+    String[] returnText = new String[2];
+    returnText[0] = text.get(pointer-1);
+    returnText[1] = text.get(pointer);
+    return returnText;
+  }
+
+  public static double getMulti(){
+    return multi;
   }
 
   public static User getUser(){
@@ -83,6 +134,10 @@ class Game {
 		}
 		
     index++;
+    if (isUserStatShow){
+      userStats.update();
+    }
+    
     if (index >= wave.size()) {
       index = 0;
       double[] stats = user.getStats();
