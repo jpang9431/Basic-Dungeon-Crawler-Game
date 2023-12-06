@@ -21,6 +21,7 @@ class Menu extends JPanel implements MouseListener {
   private int imageNum;
   private Consumer<Integer> listener;
 	private String label;
+	private boolean hover = false;
 
   /**
    * @param paths    takes in paths of pictures and addes them to imageOG, 5 Max
@@ -52,19 +53,26 @@ class Menu extends JPanel implements MouseListener {
     this.listener = listener;
 
     Timer timer = new Timer(1000 / targetFPS, e -> {
-      // System.out.println("Reboot");
+			
       Point mousePoint = MouseInfo.getPointerInfo().getLocation();
       SwingUtilities.convertPointFromScreen(mousePoint, this);
 
       imageNum = findComponent(mousePoint);
-      // System.out.println(imageNum);
+			if(imageNum!=-1){
+				if(!hover){
+					itteration = 3;
+					hover = true;
+				}
+			}else if(hover){
+				hover = false;
+			}
 
       itteration += delta;
       bobing = (int) (3.5 * (Math.sin(itteration) + Math.sin(itteration / 9) - Math.sin(itteration / 5)));
       scaleXY = 1 - (((Math.cos(itteration) - Math.cos(itteration / 4) + Math.cos((itteration / 3) + 2)) + 2.712) / 14);
       for (int i = 0; i < imageOG.length; i++) {
         rotImage[i] = rotateImageByDegrees((BufferedImage) imageOG[i], 4
-            * (Math.sin(itteration) - Math.sin(itteration / 2.0) + Math.sin(itteration / 3.0) + Math.cos(itteration)),
+            * (Math.sin(itteration) - Math.sin(itteration / 2.0) + Math.sin(itteration / 3.0) + Math.cos(itteration-1.3)),
             scaleXY);
       }
       repaint();

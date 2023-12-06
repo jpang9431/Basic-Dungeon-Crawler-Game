@@ -19,7 +19,7 @@ class Game {
   private int index = 0;
   private static Game game = null;
   private File alive = new File("images/ALIVE.png");
-  private JPanel statPanel = new StatPanel();
+  private StatPanel statPanel = new StatPanel();
   private double userMaxHP;
   private static double multi = 1; 
   private static ArrayList<String> text = new ArrayList<String>();
@@ -129,6 +129,10 @@ class Game {
   }
 
   public void nonStaticNext() {
+		if(statPanel!=null){
+			statPanel.updateText();
+		}
+		
     index++;
     if (isUserStatShow){
       userStats.update();
