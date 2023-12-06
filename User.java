@@ -8,6 +8,7 @@ class User extends Mob {
     super(names, resist, "User", "images/User.png");
     double[] tempStats = { 5.0, 0.0, 1.0, 1.0, 1.0 };
     stats = tempStats;
+    
   }
 
   public int skillChoice(Entity curEntity) {

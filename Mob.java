@@ -9,12 +9,12 @@ abstract class Mob extends Entity {
   private double favor = 0.0;
   // {"Magic","Blunt","Sharp"};
   private double[] resistances = { 0, 0, 0 };
-  private double multipler = 1.0;
-  
+  private double maxHP = 0.0;
   // Use to create a mob entity
   Mob(String[] skillNames, double[] resistances, String name, String image) {
     super(name, true, image);
     this.skillNames = skillNames;
+    double multi = Game.getMulti();
     for (int i = 0; i < skillNames.length; i++) {
       if (!(skillNames == null)) {
         skills[i] = Game.dict.getSkill(this.skillNames[i]);
@@ -23,6 +23,13 @@ abstract class Mob extends Entity {
     this.resistances = resistances;
   }
 
+  protected void multi(){
+    double multi = Game.getMulti();
+    for (int i=0; i<stats.length; i++){
+      stats[i] = stats[i]*multi;
+    }
+  }
+  
   // Returns the number of actual skills this mob has
   public int getNumSkills() {
     int nonNull = 0;

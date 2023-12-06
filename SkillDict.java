@@ -14,7 +14,7 @@ class SkillDict {
   // Type of each skill
   private Skill.Type[] type = { Skill.Type.MAGIC, Skill.Type.BLUNT, Skill.Type.SHARP, Skill.Type.NORMAL,
       Skill.Type.BLUNT, Skill.Type.NORMAL };
-  private double[] dam = { 3, 2, 3, 2, 2, Double.MAX_VALUE };
+  private double[] dam = { 3, 2, 3, 2, 2, 3 };
   private double[] self = { 0, 0, 0, 0, 0, 0 };
 
   // Call to create dictionary of skills

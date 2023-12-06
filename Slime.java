@@ -8,6 +8,7 @@ class Slime extends Mob {
     super(names, resist, "Slime", "images/Slime.png");
     double[] tempStats = { 5.0, 0.0, 1.0, 1.0, 0.0 };
     stats = tempStats;
+    multi();
   }
 
   public int skillChoice(Entity curEntity) {

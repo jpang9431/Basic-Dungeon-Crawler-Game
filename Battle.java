@@ -17,7 +17,7 @@ class Battle extends JPanel implements ActionListener {
       down = new JButton(new ImageIcon("images/Down.png"));
   private JLabel mobHP = new JLabel("", JLabel.CENTER), userHP = new JLabel("", JLabel.CENTER),
       turnDetail = new JLabel("");
-  private JLabel userImage = new JLabel(""), mobImage = new JLabel("");
+  private JButton userImage, mobImage;
   private Entity user, mob;
   private ArrayList<String> details = new ArrayList<String>();
   private String detail = "";
@@ -34,10 +34,18 @@ class Battle extends JPanel implements ActionListener {
     details.add(user.getName() + " begins battle with " + mob.getName());
     details.add("This is monster number: " + index);
     // images
-    userImage.setIcon(new ImageIcon(user.getImage()));
-    mobImage.setIcon(new ImageIcon(mob.getImage()));
+    userImage = new JButton(new ImageIcon(user.getImage()));
+    userImage.addActionListener(this);
+    userImage.setActionCommand("user");
+    userImage.setBorder(null);
+    userImage.setContentAreaFilled(false);
+    mobImage = new JButton(new ImageIcon(mob.getImage()));
+    mobImage.addActionListener(this);
+    mobImage.setActionCommand("mob");
     userImage.setBounds(170, 150, 100, 100);
     mobImage.setBounds(Game.width - 270, 150, 100, 100);
+    mobImage.setBorder(null);
+    mobImage.setContentAreaFilled(false);
     this.add(userImage);
     this.add(mobImage);
     // set size of jpanel and layout
@@ -94,6 +102,10 @@ class Battle extends JPanel implements ActionListener {
 
     } else if (command.equals("down")) {
 
+    } else if (command.equals("user")) {
+      Game.flipShow();
+    } else if (command.equals("mob"))  {
+      new ShowStat(mob);
     } else {
       int intCommand = Integer.valueOf(e.getActionCommand());
       user.setChoice(intCommand);
@@ -102,7 +114,6 @@ class Battle extends JPanel implements ActionListener {
         Game.next();
       } else if (user.getStats()[0] <= 0) {
         Game.end();
-        System.out.println("end");
       } else {
         mob.action(user);
         updateText();
@@ -120,8 +131,7 @@ class Battle extends JPanel implements ActionListener {
 
   // Call to update text display stats on user and mob
   public void updateText() {
-    
-    
+    Game.upate();
     mobHP.setText("<html>H: " + rounding(mob.getStats()[0]) + "<html>");
     userHP.setText("<html>H: " + rounding(user.getStats()[0]) + "<html>");
     mobHP.setFont(infoFont);

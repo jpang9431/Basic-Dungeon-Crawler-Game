@@ -16,7 +16,8 @@ import java.util.Random;
 
 class Encounter extends JPanel implements ActionListener {
   private JButton[] buttons;
-  private JLabel title = new JLabel(""), userLabel = new JLabel(""), eventLabel = new JLabel("");
+  private JButton userLabel;
+  private JLabel title = new JLabel(""), eventLabel = new JLabel("");
   private Font titleFont = new Font("Arial", Font.BOLD, 30);
   private Entity event = null;
   private Entity user = null;
@@ -38,7 +39,11 @@ class Encounter extends JPanel implements ActionListener {
       buttons[i].setBounds(170 + size * i, 352, size, 70);
       this.add(buttons[i]);
     }
-    userLabel.setIcon(new ImageIcon(user.getImage()));
+    userLabel = new JButton(new ImageIcon(user.getImage()));
+    userLabel.addActionListener(this);
+    userLabel.setActionCommand("user");
+    userLabel.setBorder(null);
+    userLabel.setContentAreaFilled(false);
     eventLabel.setIcon(new ImageIcon(event.getImage()));
     userLabel.setBounds(170, 150, 100, 100);
     eventLabel.setBounds(Game.width - 270, 150, 100, 100);
@@ -49,8 +54,13 @@ class Encounter extends JPanel implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    event.setChoice(Integer.valueOf(e.getActionCommand()));
-    event.action(user);
-    Game.next();
+    String command = e.getActionCommand();
+    if (command.equals("user")){
+      Game.flipShow();
+    } else {
+      event.setChoice(Integer.valueOf(command));
+      event.action(user);
+      Game.next();
+    }
   }
 }

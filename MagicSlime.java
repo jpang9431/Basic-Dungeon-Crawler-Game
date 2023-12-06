@@ -11,6 +11,7 @@ class MagicSlime extends Mob {
     super(names, resist, "Magic Slime", "images/Slime.png");
     double[] tempStats = { 5.0, 0.0, 2.0, 1.0, 0.7 };
     stats = tempStats;
+    multi();
   }
 
   public int skillChoice(Entity curEntity) {
