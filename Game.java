@@ -18,7 +18,7 @@ class Game {
   private int index = 0;
   private static Game game = null;
   private File alive = new File("images/ALIVE.png");
-  private JPanel statPanel = new StatPanel();
+  private StatPanel statPanel = new StatPanel();
   private double userMaxHP;
   // Call to start the program
   Game() {
@@ -78,6 +78,10 @@ class Game {
   }
 
   public void nonStaticNext() {
+		if(statPanel!=null){
+			statPanel.updateText();
+		}
+		
     index++;
     if (index >= wave.size()) {
       index = 0;
