@@ -4,18 +4,19 @@ import java.util.HashMap;
 class SkillDict {
   private HashMap<String, Skill> skillObjects = new HashMap<String, Skill>();
   private HashMap<String, String> skillDiscrpt = new HashMap<String, String>();
-  private String[] skillNames = { "Magic Ball", "Shield Bash", "Sword Slash", "Block", "Tackle", "Slime Body" };
+  private String[] skillNames = { "Magic Ball", "Shield Bash", "Sword Slash", "Block", "Tackle", "Slime Body", "Tail Whip", "Fire Breath", "Lava Crack" };
   private String[] skillDiscrpts = { "Fire a mana ball at an enemy", "Bash enemy with a shield",
       "Slice enemy with a sword", "Raise shield to prepare to block an attack", "Tackle the enemy",
-      "Chance to negate any attack" };
-  private double[] acc = { 100, 100, 100, 100, 100, 10 };
-  private boolean[] passive = { false, false, false, false, false, true };
-  private boolean[] offense = { true, true, true, false, true, false };
+      "Chance to negate any attack", "Bash the user with a spiked tail", "Breah fire onto the enemy", "Split the ground causing lava to spray up" };
+  private double[] acc = { 100, 100, 100, 100, 100, 10, 90, 100, 80 };
+  private boolean[] passive = { false, false, false, false, false, true, false, false, false };
+  private boolean[] offense = { true, true, true, false, true, false, true, true, true };
   // Type of each skill
   private Skill.Type[] type = { Skill.Type.MAGIC, Skill.Type.BLUNT, Skill.Type.SHARP, Skill.Type.NORMAL,
-      Skill.Type.BLUNT, Skill.Type.NORMAL };
-  private double[] dam = { 3, 2, 3, 2, 2, 3 };
-  private double[] self = { 0, 0, 0, 0, 0, 0 };
+      Skill.Type.BLUNT, Skill.Type.NORMAL, Skill.Type.BLUNT, Skill.Type.MAGIC, Skill.Type.MAGIC };
+  private double[] dam = { 3, 2, 3, 2, 2, 3, 5, 5, 4 };
+  private double[] self = { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+  
 
   // Call to create dictionary of skills
   SkillDict() {

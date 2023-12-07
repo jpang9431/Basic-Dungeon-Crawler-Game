@@ -34,7 +34,7 @@ class ShowStat{
     panel.add(new JLabel("Name: "+ ent.getName()));
     panel.add(new JLabel("Stats"));
     panel.add(new JLabel("Level: " + stats[2]));
-    panel.add(new JLabel("Health: " + stats[0]));
+    panel.add(new JLabel("Health: " + rounding(stats[0])));
     panel.add(new JLabel("Strength: " + stats[3]));
     panel.add(new JLabel("Magic: " + stats[4]));
     panel.add(new JLabel("------------------------"));
@@ -57,5 +57,12 @@ class ShowStat{
     frame.setContentPane(panel);
     frame.pack();
     frame.setVisible(true);
+  }
+
+  public double rounding(double num) {
+    num = num * 10;
+    num = Math.round(num);
+    num = num / 10;
+    return num;
   }
 }

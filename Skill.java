@@ -43,6 +43,8 @@ class Skill {
     }
     if (!this.getOffense()) {
       return dam.getDam();
+    } else if (this.passive){
+      return dam.getDam();
     }
     double randNum = rand.nextDouble() + .5;
     randNum = randNum + favor;
