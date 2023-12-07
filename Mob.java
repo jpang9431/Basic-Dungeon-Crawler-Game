@@ -45,6 +45,7 @@ abstract class Mob extends Entity {
   // skill
   public void action(Entity otherEntity) {
     int index = skillChoice(otherEntity);
+		Game.updateText(otherEntity.getSkillNames()[index]);
     Skill skill = skills[index];
     if (skill.getOffense()) {
       double stat = 1;
@@ -69,6 +70,7 @@ abstract class Mob extends Entity {
   // defensive passive
   // and damages mob based on damage and shield
   public void dam(double damage) {
+		Game.updateText(damage);
     Skill skill = skills[0];
     if (skill != null && !skill.getOffense() && skill.getPassive()) {
       this.stats[1] = skill.getDam(this.getResistances(), favor, true);
