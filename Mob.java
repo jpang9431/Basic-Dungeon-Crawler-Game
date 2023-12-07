@@ -6,10 +6,11 @@ abstract class Mob extends Entity {
   private String[] skillNames = { null, null, null, null, null };
   // {"Health", "Shield", "Level", "Strength", "Magic"};
   protected double[] stats = { 0, 0, 0, 0, 0 };
-  private double favor = 0.0;
+  protected double favor = 0.0;
   // {"Magic","Blunt","Sharp"};
   private double[] resistances = { 0, 0, 0 };
   private double maxHP = 0.0;
+
   // Use to create a mob entity
   Mob(String[] skillNames, double[] resistances, String name, String image) {
     super(name, true, image);
@@ -23,13 +24,13 @@ abstract class Mob extends Entity {
     this.resistances = resistances;
   }
 
-  protected void multi(){
+  protected void multi() {
     double multi = Game.getMulti();
-    for (int i=0; i<stats.length; i++){
-      stats[i] = stats[i]*multi;
+    for (int i = 0; i < stats.length; i++) {
+      stats[i] = stats[i] * multi;
     }
   }
-  
+
   // Returns the number of actual skills this mob has
   public int getNumSkills() {
     int nonNull = 0;
@@ -47,6 +48,15 @@ abstract class Mob extends Entity {
     int index = skillChoice(otherEntity);
 		Game.updateText(otherEntity.getSkillNames()[index]);
     Skill skill = skills[index];
+    Skill passive = skills[0];
+    double multiplier = 1.0;
+    if (skill !=null && skill.getOffense() && skill.getPassive()){
+      favor = passive.getDam(this.getResistances(), favor, true);
+    }
+    if (favor>1.0){
+      multiplier = favor;
+      favor = 0.0;
+    }
     if (skill.getOffense()) {
       double stat = 1;
       if (skill.getType().equals(Skill.Type.MAGIC)) {
@@ -54,12 +64,12 @@ abstract class Mob extends Entity {
       } else {
         stat = stats[3];
       }
-      otherEntity.dam(stat * skill.getDam(otherEntity.getResistances(), favor, true));
+      otherEntity.dam(multiplier * stat * skill.getDam(otherEntity.getResistances(), favor, true));
       if (skill.getHurtSelf()) {
         this.dam(stat * skill.getDam(this.getResistances(), favor, false));
       }
     } else if (!skill.getOffense()) {
-      this.stats[1] = skill.getDam(this.getResistances(), favor, false);
+      this.stats[1] = skill.getDam(this.getResistances(), favor, true);
     }
   }
 
@@ -74,8 +84,15 @@ abstract class Mob extends Entity {
     Skill skill = skills[0];
     if (skill != null && !skill.getOffense() && skill.getPassive()) {
       this.stats[1] = skill.getDam(this.getResistances(), favor, true);
+      if (skill.getHurtSelf()){
+        this.stats[0] = this.stats[0] - skill.getDam(this.getResistances(), favor, false);
+      }
     }
-    damage = damage - this.stats[1];
+    if (this.stats[1] > 1) {
+      damage = damage - this.stats[1];
+    } else if (this.stats[1] > 0) {
+      damage = damage * this.stats[1];
+    }
     if (damage > 0) {
       this.stats[0] = this.stats[0] - damage;
     }
