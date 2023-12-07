@@ -68,7 +68,7 @@ abstract class Mob extends Entity {
         this.dam(stat * skill.getDam(this.getResistances(), favor, false));
       }
     } else if (!skill.getOffense()) {
-      this.stats[1] = skill.getDam(this.getResistances(), favor, false);
+      this.stats[1] = skill.getDam(this.getResistances(), favor, true);
     }
   }
 
@@ -82,6 +82,9 @@ abstract class Mob extends Entity {
     Skill skill = skills[0];
     if (skill != null && !skill.getOffense() && skill.getPassive()) {
       this.stats[1] = skill.getDam(this.getResistances(), favor, true);
+      if (skill.getHurtSelf()){
+        this.stats[0] = this.stats[0] - skill.getDam(this.getResistances(), favor, false);
+      }
     }
     if (this.stats[1] > 1) {
       damage = damage - this.stats[1];

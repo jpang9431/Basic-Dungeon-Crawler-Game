@@ -12,8 +12,8 @@ class Game {
   private String[] images = { "images/Start.png", "images/Settings.png", "images/Tutorial.png" };
   private static String[] endImages = {"images/Start.png", "images/Image.jpg"};
   private User user = new User();
-  private String[] mobList = { "slime", "magicSlime" };
-  private int[] mobLevels = { 1, 2 };
+  private String[] mobList = { "slime", "magicSlime", "lavaTurtle" };
+  private int[] mobLevels = { 1, 2, 10 };
   private Random rand = new Random();
   private ArrayList<Entity> wave = new ArrayList<Entity>();
   private int index = 0;
@@ -137,7 +137,6 @@ class Game {
     if (isUserStatShow){
       userStats.update();
     }
-    
     if (index >= wave.size()) {
       index = 0;
       double[] stats = user.getStats();
@@ -204,6 +203,9 @@ class Game {
     if (!hadStatChange){
       wave.add(statChange);
     }
+    if (maxValue==10){
+      wave.add(getEntity(mobList[2]));
+    }
     wave.add(new LevelUp());
   }
 
@@ -222,6 +224,8 @@ class Game {
       return new Slime();
     } else if (entityName.equals("magicSlime")) {
       return new MagicSlime();
+    } else if (entityName.equals("lavaTurtle")){
+      return new LavaTurtle();
     } else {
       return null;
     }
