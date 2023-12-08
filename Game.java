@@ -67,7 +67,22 @@ class Game {
     pointer++;
   }
 
-  public String[] upDown(boolean up){
+  public static String[] getText(){
+    String[] returnText = new String[2];
+    try{
+      returnText[0] = text.get(pointer-1);
+      returnText[1] = text.get(pointer);
+    } catch (Exception e){
+      if (returnText[1]==null){
+        returnText[1] = "";
+      }
+    }
+    
+    
+    return returnText;
+  }
+
+  public static String[] upDown(boolean up){
     if (up){
       pointer--;
     } else {
@@ -164,11 +179,11 @@ class Game {
     }
   }
 
-  public static void updateHP(int change) {
+  public static void updateHP(double change) {
     game.nonStaticUpdateHP(change);
   }
 
-  public void nonStaticUpdateHP(int change) {
+  public void nonStaticUpdateHP(double change) {
     userMaxHP = userMaxHP + change;
   }
   

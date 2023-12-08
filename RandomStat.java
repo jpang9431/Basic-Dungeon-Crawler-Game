@@ -14,12 +14,12 @@ class RandomStat extends Event {
     double[] stats = user.getStats();
     choice = rand.nextInt(3);
     if (choice == 0) {
-      Game.updateHP(2);
-      stats[0] = stats[0]+2;
+      Game.updateHP(0.5);
+      stats[0] = stats[0]+0.5;
     } else if (choice == 1) {
-      stats[3]++;
+      stats[3] = stats[3]+0.5;
     } else if (choice == 2) {
-      stats[4]++;
+      stats[4] = stats[4]+0.5;
     }
     user.setStats(stats);
   }

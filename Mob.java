@@ -46,11 +46,12 @@ abstract class Mob extends Entity {
   // skill
   public void action(Entity otherEntity) {
     int index = skillChoice(otherEntity);
-		Game.updateText(otherEntity.getSkillNames()[index]);
+		Game.updateText(this.getName() + " uses "+ this.getSkillNames()[index]);
     Skill skill = skills[index];
     Skill passive = skills[0];
     double multiplier = 1.0;
     if (skill !=null && skill.getOffense() && skill.getPassive()){
+      Game.updateText(this.getName() + " uses its offensive passive abilitiy "+ this.getSkillNames()[index]);
       favor = passive.getDam(this.getResistances(), favor, true);
     }
     if (favor>1.0){
@@ -80,7 +81,7 @@ abstract class Mob extends Entity {
   // defensive passive
   // and damages mob based on damage and shield
   public void dam(double damage) {
-		Game.updateText(damage);
+		
     Skill skill = skills[0];
     if (skill != null && !skill.getOffense() && skill.getPassive()) {
       this.stats[1] = skill.getDam(this.getResistances(), favor, true);
@@ -96,7 +97,15 @@ abstract class Mob extends Entity {
     if (damage > 0) {
       this.stats[0] = this.stats[0] - damage;
     }
+    Game.updateText(this.getName() + " was damaged for "+ rounding(damage) + " damage");
     this.stats[1] = 0;
+  }
+
+  public double rounding(double num) {
+    num = num * 10;
+    num = Math.round(num);
+    num = num / 10;
+    return num;
   }
 
   // Return array of resistances to damages {"Magic","Blunt","Sharp"};

@@ -12,7 +12,7 @@ class LevelUp extends Event {
   public void action(Entity user) {
     double[] stats = user.getStats();
     if (choice == 0) {
-      Game.updateHP(2);
+      Game.updateHP(1);
     } else if (choice == 1) {
       stats[3]++;
     } else if (choice == 2) {

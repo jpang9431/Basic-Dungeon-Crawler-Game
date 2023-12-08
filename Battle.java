@@ -20,7 +20,6 @@ class Battle extends JPanel implements ActionListener {
   private JButton userImage, mobImage;
   private Entity user, mob;
   private ArrayList<String> details = new ArrayList<String>();
-  private String detail = "";
   private Font infoFont = new Font("Arial", Font.PLAIN, 20);
   private Font titleFont = new Font("Arial", Font.BOLD, 30);
   @SuppressWarnings("unused")
@@ -31,8 +30,9 @@ class Battle extends JPanel implements ActionListener {
     this.user = user;
     this.mob = mob;
     // first line detail
-    details.add(user.getName() + " begins battle with " + mob.getName());
-    details.add("This is monster number: " + index);
+    Game.updateText(user.getName() + " begins battle with " + mob.getName());
+    Game.updateText("This is monster number: " + index);
+    turnDetail.setText("<html>"+Game.getText()[0]+"<br>"+Game.getText()[1]+"<html>");
     // images
     userImage = new JButton(new ImageIcon(user.getImage()));
     userImage.addActionListener(this);
@@ -99,9 +99,11 @@ class Battle extends JPanel implements ActionListener {
     // TODO Auto-generated method stub
     String command = e.getActionCommand();
     if (command.equals("up")) {
-
+      String[] text = Game.upDown(true);
+      turnDetail.setText("<html>"+text[0]+"<br>"+text[1]+"<html>");
     } else if (command.equals("down")) {
-
+      String[] text = Game.upDown(false);
+      turnDetail.setText("<html>"+text[0]+"<br>"+text[1]+"<html>");
     } else if (command.equals("user")) {
       Game.flipShow();
     } else if (command.equals("mob"))  {
@@ -135,20 +137,8 @@ class Battle extends JPanel implements ActionListener {
     mobHP.setText("<html>H: " + rounding(mob.getStats()[0]) + "<html>");
     userHP.setText("<html>H: " + rounding(user.getStats()[0]) + "<html>");
     mobHP.setFont(infoFont);
-    userHP.setFont(infoFont);
-    detail = "<html>";
+    turnDetail.setText("<html>"+Game.getText()[0]+"<br>"+Game.getText()[1]+"<html>");
     pointer = details.size() - 4;
-    if (details.size() > 3) {
-      for (int i = 0; i < details.size(); i++) {
-        detail = details.get(details.size() - i - 1) + "<br/>" + detail;
-      }
-    } else {
-      for (int i = 0; i < details.size(); i++) {
-        detail = detail + details.get(i) + "<br/>";
-      }
-    }
-    detail = detail + "<html>";
-    turnDetail.setText(detail);
     if (user.getStats()[0] <= 0) {
       Game.end();
       System.out.println("end");
