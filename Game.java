@@ -29,7 +29,7 @@ class Game {
   // Call to start the program
   Game() {
     frame.setSize(width, height);
-    frame.setContentPane(new Menu(images, Game::start));
+    frame.setContentPane(new Menu(images, Game::start, "A game with placeholder text for images"));
     frame.setVisible(true);
     statPanel.setBounds(width-20,0,20,20);
     try{
@@ -120,7 +120,7 @@ class Game {
   }
 
   public static void end(){
-    game.frame.setContentPane(new Menu(endImages, Game::end));
+    game.frame.setContentPane(new Menu(endImages, Game::end, "You have died"));
     game.frame.revalidate();
     game.frame.repaint();
   }
