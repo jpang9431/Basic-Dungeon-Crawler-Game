@@ -6,7 +6,7 @@ class LevelUp extends Event {
   private int choice = 0;
 
   LevelUp() {
-    super("Leveled up", "images/Image.jpg", "You leveled up", null, choices, odds, Skill.Type.NORMAL);
+    super("Leveled up", "images/LevelUp.png", "You leveled up", null, choices, odds, Skill.Type.NORMAL);
   }
 
   public void action(Entity user) {

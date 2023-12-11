@@ -7,19 +7,19 @@ class RandomStat extends Event {
   private int choice = 0;
   private Random rand = new Random();
   RandomStat() {
-    super("Random stat up", "images/Image.jpg", "One of your stats was increased", null, choices, odds, Skill.Type.NORMAL);
+    super("Random stat up", "images/StatUp.png", "One of your stats was increased", null, choices, odds, Skill.Type.NORMAL);
   }
 
   public void action(Entity user) {
     double[] stats = user.getStats();
     choice = rand.nextInt(3);
     if (choice == 0) {
-      Game.updateHP(0.5);
-      stats[0] = stats[0]+0.5;
+      Game.updateHP(1);
+      stats[0] = stats[0]+1;
     } else if (choice == 1) {
-      stats[3] = stats[3]+0.5;
+      stats[3] = stats[3]+1;
     } else if (choice == 2) {
-      stats[4] = stats[4]+0.5;
+      stats[4] = stats[4]+1;
     }
     user.setStats(stats);
   }

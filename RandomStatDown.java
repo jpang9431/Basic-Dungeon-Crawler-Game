@@ -7,7 +7,7 @@ class RandomStatDown extends Event {
   private Random rand = new Random();
 
   RandomStatDown() {
-    super("Random stat down", "images/Image.jpg", "One of your stats was decreased", null, choices, odds,
+    super("Random stat down", "images/StatDown.png", "One of your stats was decreased", null, choices, odds,
         Skill.Type.NORMAL);
   }
 
