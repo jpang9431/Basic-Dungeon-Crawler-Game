@@ -189,11 +189,11 @@ class Game {
     int curValue = 0;
     int tempValue = mobLevels.length;
     boolean hadStatChange = false;
-    int goodBad = rand.nextInt(10);
+    int goodBad = rand.nextInt(2);
     Entity statChange = null;
-    if (goodBad<9){
+    if (goodBad<1){
       statChange = new RandomStat();
-    } else if (goodBad>=9){
+    } else if (goodBad>=1){
       statChange = new RandomStatDown();
     }
     while (curValue < maxValue) {
