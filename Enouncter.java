@@ -21,7 +21,7 @@ class Encounter extends JPanel implements ActionListener {
   private Font titleFont = new Font("Arial", Font.BOLD, 30);
   private Entity event = null;
   private Entity user = null;
-
+  private JLabel background = new JLabel(new ImageIcon("images/Wall.png"));
   Encounter(Entity user, Entity event) {
     int size = 460;
     this.event = event;
@@ -50,6 +50,8 @@ class Encounter extends JPanel implements ActionListener {
     this.add(userLabel);
     this.add(eventLabel);
     this.setLayout(null);
+    background.setBounds(0,0,800,450);
+    this.add(background);
   }
 
   @Override

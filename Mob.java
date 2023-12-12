@@ -96,6 +96,8 @@ abstract class Mob extends Entity {
     }
     if (damage > 0) {
       this.stats[0] = this.stats[0] - damage;
+    } else {
+      damage = 0;
     }
     Game.updateText(this.getName() + " was damaged for "+ rounding(damage) + " damage");
     this.stats[1] = 0;

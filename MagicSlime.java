@@ -8,7 +8,7 @@ class MagicSlime extends Mob {
   private Random rand = new Random();
 
   MagicSlime() {
-    super(names, resist, "Magic Slime", "images/Slime.png");
+    super(names, resist, "Magic Slime", "images/MSlime.png");
     double[] tempStats = { 5.0, 0.0, 2.0, 1.0, 0.7 };
     stats = tempStats;
     multi();
