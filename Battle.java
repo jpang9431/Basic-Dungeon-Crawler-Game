@@ -1,13 +1,19 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.Graphics;
+
 import java.util.ArrayList;
+
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 
 //Use to battle two entities togteher
 class Battle extends JPanel implements ActionListener {
@@ -24,11 +30,13 @@ class Battle extends JPanel implements ActionListener {
   private Font titleFont = new Font("Arial", Font.BOLD, 30);
   @SuppressWarnings("unused")
   private int pointer = 0;
-
+  private JLabel background = new JLabel(new ImageIcon("images/Wall.png"));
+  private static boolean hasAdjust = true;
   // Consturtor to start the battle
   Battle(Entity user, Entity mob, int index, int remain) {
     this.user = user;
     this.mob = mob;
+    background.setBounds(0,0,800,450);
     // first line detail
     Game.updateText(user.getName() + " begins battle with " + mob.getName());
     Game.updateText("This is monster number: " + index);
@@ -91,6 +99,12 @@ class Battle extends JPanel implements ActionListener {
     }
     // Updates text as needed
     updateText();
+    this.add(background);
+    if (hasAdjust){
+      String[] text = Game.upDown(true);
+      turnDetail.setText("<html>"+text[0]+"<br>"+text[1]+"<html>");
+      hasAdjust = false;
+    }
   }
 
   // Called whever action listener is triggered

@@ -10,7 +10,7 @@ class Game {
   public final static int width = 800, height = 450;
   private JFrame frame = new JFrame("Game");
   private String[] images = { "images/Start.png", "images/Settings.png", "images/Tutorial.png" };
-  private static String[] endImages = {"images/Start.png", "images/Image.jpg"};
+  private static String[] endImages = {"images/Start.png", "images/Tutorial.png"};
   private User user = new User();
   private String[] mobList = { "slime", "magicSlime", "lavaTurtle" };
   private int[] mobLevels = { 1, 2, 10 };
@@ -40,6 +40,7 @@ class Game {
     game = this;
     userMaxHP =  Game.getUser().getStats()[0];
     // next();
+    
   }
 
   public static void flipShow(){
@@ -77,8 +78,6 @@ class Game {
         returnText[1] = "";
       }
     }
-    
-    
     return returnText;
   }
 
@@ -147,7 +146,6 @@ class Game {
 		if(statPanel!=null){
 			statPanel.updateText();
 		}
-		
     index++;
     if (isUserStatShow){
       userStats.update();
@@ -162,11 +160,9 @@ class Game {
     Entity curEntity = wave.get(index);
     if (curEntity.getMob()) {
       JPanel panel = new Battle(user, curEntity, index+1, wave.size()-index-1);
-      panel.add(statPanel);
       frame.setContentPane(panel);
     } else if (!curEntity.getMob()) {
       JPanel panel = new Encounter(user, curEntity);
-      panel.add(statPanel);
       frame.setContentPane(panel);
     }
     frame.revalidate();
