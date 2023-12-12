@@ -1,7 +1,7 @@
 import java.util.Random;
 class LavaTurtle extends Mob{
   private static String[] names = { "Healing Flames", "Tail Whip", "Fire Breath", "Lava Crack","Tackle" };
-  private static double[] resist = { 2.0, 2.0, 2.0 };
+  private static double[] resist = { 0.0, 2.0, 2.0 };
   private int[] baseCooldown = {2,2,2,0};
   private int[] coolDown = {2,2,2,0};
   private Random rand = new Random();
